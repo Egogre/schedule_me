@@ -1,0 +1,36 @@
+body {
+  background-color: tan;
+}
+
+.container {
+  background-color: grey;
+  border-radius: 10px;
+}
+
+.splash {
+  min-height: 750px;
+  background-image: url("day-planner.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 30px;
+  border-radius: 8px;
+}
+
+.schedule-button {
+  margin-left: 70%;
+  top : 595px;
+  position: relative;
+  width: 290px;
+  height: 100px;
+  border-radius: 5px;
+  border: 10px;
+  border-color: white;
+  font-size: 2em;
+  font-family: cursive;
+  background-color: lightgrey;
+  padding-top: 3%;
+}
+
+.schedule-button:hover {
+  background-color: white;
+}
