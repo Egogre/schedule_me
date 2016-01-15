@@ -33,11 +33,13 @@ ActiveRecord::Schema.define(version: 20160115202659) do
     t.time     "end_time"
     t.text     "notes"
     t.integer  "schedule_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "timeslots", ["schedule_id"], name: "index_timeslots_on_schedule_id", using: :btree
+  add_index "timeslots", ["user_id"], name: "index_timeslots_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -50,4 +52,5 @@ ActiveRecord::Schema.define(version: 20160115202659) do
 
   add_foreign_key "schedules", "users"
   add_foreign_key "timeslots", "schedules"
+  add_foreign_key "timeslots", "users"
 end

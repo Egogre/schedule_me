@@ -6,6 +6,7 @@ class CreateTimeslots < ActiveRecord::Migration
       t.time :end_time
       t.text :notes
       t.references :schedule, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
