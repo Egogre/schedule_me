@@ -1,0 +1,19 @@
+<h1>Log In</h1>
+<div id='login'>
+  <%= form_for(:session, url: login_path) do |f| %>
+    <%= f.text_field :email, class: "form-control", autofocus: "", required: "", placeholder: "Email address" %>
+    <%= f.password_field :password, class: "form-control", required: "", placeholder: "Password" %>
+    <p class="button"><%= submit_tag "Login", class: "btn btn-lg btn-primary btn-block" %></p>
+  <% end %>
+</div>
+<h1>Or Create New Account</h1>
+<div id='signup'>
+  <%= form_for(:user, url: users_path) do |f| %>
+    <%= f.text_field :first_name, class: "form-control", autofocus: "", required: "", placeholder: "First Name" %>
+    <%= f.text_field :last_name, class: "form-control", autofocus: "", required: "", placeholder: "Last Name" %>
+    <%= f.text_field :email, class: "form-control", autofocus: "", required: "", placeholder: "Email address" %>
+    <%= f.password_field :password, class: "form-control", required: "", placeholder: "Password" %>
+    <%= f.password_field :password_confirmation, class: "form-control", required: "", placeholder: "Confirm Password" %><br/>
+    <p class="button"><%= submit_tag "Register", class: "btn btn-lg btn-primary btn-block" %></p>
+  <% end %>
+</div>

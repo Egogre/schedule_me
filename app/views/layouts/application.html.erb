@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ScheduleMe</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>ScheduleMe</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= render "layouts/navbar" %>
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-info text-center">
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      </div>
+    <% end %>
+    <div class="container">
 
-<%= yield %>
+      <%= yield %>
 
-</body>
+    </div>
+  </body>
 </html>
