@@ -16,6 +16,12 @@ body {
   border-radius: 8px;
 }
 
+.schedule-header {
+  color: white;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
 .schedule-button {
   margin-left: 70%;
   top : 595px;
@@ -33,4 +39,18 @@ body {
 
 .schedule-button:hover {
   background-color: white;
+}
+
+.row.text-center > div {
+    display: inline-block;
+    float: none;
+}
+
+.day-card {
+  width: 13%;
+}
+
+.card-content {
+  background-color: white;
+  border-radius: 5px;
 }
