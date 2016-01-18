@@ -1,16 +1,18 @@
+<%= render "schedules/modal" %>
+
 <div class="schedule-header">
   <h1 class="text-center">Your Schedule</h1>
   <div class="row ">
     <div class="col-md-4">
-      <button class="btn change-week" data-id="-1"><</button>
+      <button class="btn btn-info change-week" data-id="-1"><</button>
       :previous week
     </div>
     <div class="col-md-4 text-center">
-      <button class="btn create-schedule">Create New Schedule</button>
+      <button type="button" class="btn btn-info btn-lg create-schedule" data-toggle="modal" data-target="#myModal">Create New Schedule</button>
     </div>
     <div class="col-md-4 text-right">
       next week:
-      <button class="btn change-week" data-id="1">></button>
+      <button class="btn btn-info change-week" data-id="1">></button>
     </div>
   </div>
 </div>

@@ -5,18 +5,6 @@ $(document).ready(function(){
     showWeek = showWeek + $(this).data('id');
     fetchAllDays(showWeek);
   });
-  // showRecentSyncs()
-  // showTableSyncs()
-  // toggleCards()
-  // refreshCards()
-  // $('.client-modal2').hide();
-  // setInterval(fetchAllSyncs, 10000);
-  // setInterval(showRecentSyncs, 10000);
-  // setInterval(showTableSyncs, 10000);
-  // $('.modal-trigger').leanModal({
-  //     dismissible: true,
-  //   }
-  // );
 });
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -27,22 +15,14 @@ const weekDayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
   "Friday", "Saturday"
 ];
 
-var today = new Date();
-var dd = today.getDate();
-if(dd<10) {
-    dd='0'+dd;
-}
-var month = monthNames[today.getMonth()];
-var year = today.getFullYear();
-var weekDay = weekDayNames[today.getDay()];
-
-function dateString (index, showWeek) {
-  var offset = index - 1;
-  var dd = today.getDate() + offset;
+function dateString (day) {
+  var dd = day.getDate();
   if(dd<10) {
       dd='0'+dd;
   }
-  return month + ' ' + (dd + showWeek * 7) + ', ' + year;
+  var month = monthNames[day.getMonth()];
+  var year = day.getFullYear();
+  return month + ' ' + dd + ', ' + year;
 }
 
 function fetchAllDays(showWeek){
@@ -53,11 +33,15 @@ function fetchAllDays(showWeek){
 }
 
 function buildCard (index, card, showWeek) {
+  var offset = index - 1 + 7 * showWeek;
+  var day = new Date();
+  day.setDate(day.getDate() + offset);
+  var weekDay = weekDayNames[day.getDay()];
   $(card).html(
     '<div class="card card-content"><span class="center"><strong>' +
-    weekDayNames[(today.getDay() + index - 1) % 7] +
+    weekDay +
     '</strong></span><br><span class="center">' +
-    dateString(index, showWeek) +
+    dateString(day) +
     '</span><hr>' +
     addTimes(index) +
     '</div>'
