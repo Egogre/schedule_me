@@ -54,3 +54,12 @@ body {
   background-color: white;
   border-radius: 5px;
 }
+
+td {
+  color: lightgrey;
+}
+
+td.hover {
+  border: 3px;
+  border-color: lightblue;
+}

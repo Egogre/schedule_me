@@ -16,12 +16,32 @@
           <h3>End Date</h3>
           <input type="date" name="bday">
         </form>
-        <div class="timeslot">
+        <div class="timeslot well">
           <h3>Timeslot</h3>
-          <input type="text" class="form-control schedule-title" style="font-size:30px">
-          <h3>Start Date</h3>
-          <input type="text" class="form-control schedule-start-date" style="font-size:30px">
-          <h3>End Date</h3>
+          <h3>Start Time</h3>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+              <div class="input-group">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          Action
+          <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div><!-- /btn-group -->
+    <input type="text" class="form-control">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span>
+  </div><!-- /input-group -->
+          </div>
+          <h3>End Time</h3>
           <input type="text" class="form-control schedule-end-date" style="font-size:30px">
         </div>
       </div>

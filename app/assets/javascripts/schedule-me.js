@@ -49,7 +49,7 @@ function buildCard (index, card, showWeek) {
 }
 
 function addTimes (index) {
-  return '<table class="table text-left" data-id="' +
+  return '<table class="table table-striped text-left" data-id="' +
   index +
   '"><tr><td class="AM12">12:00AM</td></tr><tr><td>:15</td></tr><tr><td>:30</td></tr><tr><td>:45</td></tr>' +
   '<tr><td class="AM1">1:00AM</td></tr><tr><td>:15</td></tr><tr><td>:30</td></tr><tr><td>:45</td></tr>' +
