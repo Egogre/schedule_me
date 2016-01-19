@@ -20,13 +20,13 @@ class TimeslotTest < ActiveSupport::TestCase
     refute timeslot.valid?
   end
 
-  test "invalid timeslot without user id" do
+  test "valid timeslot without user id" do
     timeslot = Timeslot.new(date: Date.today,
                             start_time: Time.now,
                             end_time: Time.now,
                             schedule_id: 1)
 
-    refute timeslot.valid?
+    assert timeslot.valid?
   end
 
   test "invalid timeslot without start time" do

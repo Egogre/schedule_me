@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'responders'
 gem 'bcrypt'
+gem 'momentjs-rails'
 
 group :test do
   gem 'pry'

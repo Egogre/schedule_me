@@ -59,7 +59,22 @@ td {
   color: lightgrey;
 }
 
-td.hover {
-  border: 3px;
-  border-color: lightblue;
+.schedule-title {
+  height: 100%;
+}
+
+.modal {
+  height: 100%;
+}
+
+.modal-body {
+  min-height: 100%;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+}
+
+.modal-footer {
+  min-height: 100%;
+  max-height: 100%;
+  margin-top: 5px;
 }

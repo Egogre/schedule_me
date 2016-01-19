@@ -5,6 +5,19 @@ $(document).ready(function(){
     showWeek = showWeek + $(this).data('id');
     fetchAllDays(showWeek);
   });
+  resetTimeslots();
+  $('.add-timeslot').on('click', function() {
+    addTimeslot();
+  });
+  $('.modal').delegate('.remove-timeslot', 'click', function(){
+    removeTimeslot(this);
+  });
+  $('.close-modal').on('click', function() {
+    resetTimeslots();
+  });
+  $('.submit-schedule').on('click', function() {
+    createSchedule();
+  });
 });
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -47,6 +60,171 @@ function buildCard (index, card, showWeek) {
     '</div>'
   );
 }
+
+function addTimeslot () {
+  $('.timeslots').append(timeslotTemplate);
+}
+
+function removeTimeslot (element) {
+  $(element).parent().parent().remove();
+}
+
+function resetTimeslots () {
+  $('.timeslots').html(timeslotTemplate);
+}
+
+function createSchedule () {
+  var title = $('.schedule-title').val();
+  var startDate = $('.start-date').val();
+  var endDate = $('.end-date').val();
+  var errorsDiv = $( ".schedule-errors" );
+  $.ajax({
+    type: 'POST',
+    url:  '/api/v1/schedules',
+    data: {schedule: {title: title, start_date: startDate, end_date: endDate}},
+    error: function(response) {
+      errorsDiv.html('');
+      $('#myModal').scrollTop(0);
+      var errors = JSON.parse(response.responseText).errors;
+      for(var key in errors) {
+        errorsDiv.append('<li class="text-danger">' + key + " " + errors[key] + '</li>');
+      }
+    },
+    success: function(response){
+      createTimeslots(response.id, errorsDiv);
+    }
+  });
+}
+
+function createTimeslots (scheduleId, errorsDiv) {
+  errorsDiv.html('');
+  $('.timeslot').each(function (index, slot) {
+    var date = $(slot).find('.timeslot-date').val();
+    var startHour = $(slot).find('.start-hour1').val();
+    var startMinute = $(slot).find('.start-minute1').val();
+    var startAmPm = $(slot).find('.start-am-pm1').val();
+    var endHour = $(slot).find('.end-hour1').val();
+    var endMinute = $(slot).find('.end-minute1').val();
+    var endAmPm = $(slot).find('.end-am-pm1').val();
+    var localStartTime = new Date(date + "T" + startHour + ":" + startMinute + ":00");
+    var localEndTime = new Date(date + "T" + endHour + ":" + endMinute + ":00");
+    var startUTC = moment.utc(localStartTime).format();
+    var endUTC = moment.utc(localEndTime).format();
+    $.ajax({
+      type: 'POST',
+      url:  '/api/v1/timeslots',
+      data: {timeslot: {date: date,
+                        start_time: startUTC,
+                        end_time: endUTC,
+                        schedule_id: scheduleId}},
+      error: function(response) {
+        $('#myModal').scrollTop(0);
+        var errors = JSON.parse(response.responseText).errors;
+        for(var key in errors) {
+          errorsDiv.append('<li class="text-danger">Timeslot ' +
+                           (index + 1) +
+                           ": " +
+                           key +
+                           " " +
+                           errors[key] +
+                           '</li>');
+        }
+        $.ajax({
+          type: 'DELETE',
+          url:  '/api/v1/schedules/' + scheduleId,
+          data: {}
+        });
+      },
+      success: function(response){
+        errorsDiv.html('');
+        $('.schedule-title').val('');
+        $('.start-date').val('');
+        $('.end-date').val('');
+        resetTimeslots();
+      }
+    });
+  });
+}
+
+var timeslotTemplate = '<div class="timeslot"><hr></hr>' +
+  '<div class="col-md-12">' +
+    '<button type="button" class="close remove-timeslot">&times;</button>' +
+    '<h4>Date:</h4>' +
+    '<input type="date" class="timeslot-date">' +
+  '</div>' +
+  '<div class="col-md-6">' +
+    '<h4>Start Time</h4>' +
+  '</div>' +
+  '<div class="col-md-6">' +
+    '<h4>End Time</h4>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="hour">Hour:</label>' +
+    '<select class="form-control start-hour1">' +
+      '<option>01</option>' +
+      '<option>02</option>' +
+      '<option>03</option>' +
+      '<option>04</option>' +
+      '<option>05</option>' +
+      '<option>06</option>' +
+      '<option>07</option>' +
+      '<option>08</option>' +
+      '<option>09</option>' +
+      '<option>10</option>' +
+      '<option>11</option>' +
+      '<option>12</option>' +
+    '</select>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="minute">Minute:</label>' +
+    '<select class="form-control start-minute1">' +
+      '<option>00</option>' +
+      '<option>15</option>' +
+      '<option>30</option>' +
+      '<option>45</option>' +
+    '</select>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="am-pm">AM/PM:</label>' +
+    '<select class="form-control start-am-pm1">' +
+      '<option>AM</option>' +
+      '<option>PM</option>' +
+    '</select>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="sel1">Hour:</label>' +
+    '<select class="form-control end-hour1">' +
+      '<option>01</option>' +
+      '<option>02</option>' +
+      '<option>03</option>' +
+      '<option>04</option>' +
+      '<option>05</option>' +
+      '<option>06</option>' +
+      '<option>07</option>' +
+      '<option>08</option>' +
+      '<option>09</option>' +
+      '<option>10</option>' +
+      '<option>11</option>' +
+      '<option>12</option>' +
+    '</select>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="sel1">Minute:</label>' +
+    '<select class="form-control end-minute1">' +
+      '<option>00</option>' +
+      '<option>15</option>' +
+      '<option>30</option>' +
+      '<option>45</option>' +
+    '</select>' +
+  '</div>' +
+  '<div class="col-md-2 form-group">' +
+    '<label for="sel1">AM/PM:</label>' +
+    '<select class="form-control end-am-pm1">' +
+      '<option>AM</option>' +
+      '<option>PM</option>' +
+    '</select>' +
+  '</div>' +
+'</div>';
 
 function addTimes (index) {
   return '<table class="table table-striped text-left" data-id="' +
