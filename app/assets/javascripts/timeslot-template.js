@@ -77,3 +77,7 @@ var timeslotTemplate = '<div class="timeslot"><hr></hr>' +
     '</select>' +
   '</div>' +
 '</div>';
+
+function removeTimeslot (element) {
+  $(element).parent().parent().remove();
+}

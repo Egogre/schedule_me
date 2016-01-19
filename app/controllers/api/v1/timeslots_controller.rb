@@ -2,7 +2,6 @@ class Api::V1::TimeslotsController < ApplicationController
   respond_to :json
 
   def create
-    require 'pry'; binding.pry
     respond_with :api, :v1, Timeslot.create(timeslot_params)
   end
 
