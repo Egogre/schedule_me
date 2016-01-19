@@ -6,7 +6,7 @@ class SchedulesController < ApplicationController
   end
 
   def show
-
+    @schedule = Schedule.includes(:timeslots).find(params[:id])
   end
 
 end

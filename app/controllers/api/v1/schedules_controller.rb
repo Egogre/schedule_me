@@ -7,7 +7,11 @@ class Api::V1::SchedulesController < ApplicationController
   end
 
   def index
-    respond_with Schedule.where(user_id: current_user.id)
+    schedules = Schedule.includes(:timeslots).where(user_id: current_user.id)
+    payload = schedules.map do |schedule|
+      {id: schedule.id, title: schedule.title, timeslots: schedule.timeslots}
+    end
+    respond_with payload
   end
 
   def destroy

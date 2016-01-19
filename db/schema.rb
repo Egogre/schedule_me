@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20160115202659) do
   create_table "timeslots", force: :cascade do |t|
     t.date     "date"
     t.time     "start_time"
-    t.time     "end_time"
-    t.text     "notes"
+    t.datetime "end_time"
+    t.datetime "notes"
     t.integer  "schedule_id"
     t.integer  "user_id"
     t.datetime "created_at",  null: false

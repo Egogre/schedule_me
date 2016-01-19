@@ -1,1 +1,4 @@
-LOOK AT ME!
+<h1><%= @schedule.title %></h1>
+<% @schedule.timeslots.each do |timeslot| %>
+  <div class="schedule-timeslot" data-id=<%="#{timeslot.id}"%>>hi</div>
+<% end %>
